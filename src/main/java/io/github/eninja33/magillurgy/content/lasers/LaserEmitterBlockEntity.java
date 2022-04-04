@@ -18,7 +18,7 @@ public class LaserEmitterBlockEntity extends BlockEntity {
 
     private LaserBeam laserBeam; //Keeps track of all laser reflections and things
 
-    private static final int STRENGTH = 64; //Default of 64 blocks the laser can travel
+    private static final int STRENGTH = 256; //Default of 64 blocks the laser can travel
     private static final int UPDATE_TIME = 1; //Refresh lasers every x ticks
 
     public LaserEmitterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

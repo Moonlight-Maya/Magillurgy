@@ -11,5 +11,6 @@ public class ItemRegistrar {
 
     public static void register() {
         Registry.register(Registry.ITEM, new Identifier(MagillurgyMod.MODID, "reflector_block"), new BlockItem(BlockRegistrar.REFLECTOR_BLOCK, new FabricItemSettings().group(ItemGroup.REDSTONE)));
+        Registry.register(Registry.ITEM, new Identifier(MagillurgyMod.MODID, "laser_emitter_block"), new BlockItem(BlockRegistrar.LASER_EMITTER_BLOCK, new FabricItemSettings().group(ItemGroup.REDSTONE)));
     }
 }
