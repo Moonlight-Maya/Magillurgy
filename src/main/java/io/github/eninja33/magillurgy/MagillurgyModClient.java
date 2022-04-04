@@ -8,6 +8,5 @@ public class MagillurgyModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockEntityRendererRegistrar.register();
-
     }
 }
