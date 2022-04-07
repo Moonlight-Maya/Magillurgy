@@ -1,0 +1,562 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "mounted": "down"
+      },
+      "apply": {
+        "model": "magillurgy:block/reflector_block_base",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "mounted": "up"
+      },
+      "apply": {
+        "model": "magillurgy:block/reflector_block_base",
+        "uvlock": true,
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north"
+      },
+      "apply": {
+        "model": "magillurgy:block/reflector_block_base",
+        "uvlock": true,
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "south"
+      },
+      "apply": {
+        "model": "magillurgy:block/reflector_block_base",
+        "uvlock": true,
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east"
+      },
+      "apply": {
+        "model": "magillurgy:block/reflector_block_base",
+        "uvlock": true,
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west"
+      },
+      "apply": {
+        "model": "magillurgy:block/reflector_block_base",
+        "uvlock": true,
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 0
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_0"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 1
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_1"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 2
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_2"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 3
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_3"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 4
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_4"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 5
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_5"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 6
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_6"
+      }
+    },
+    {
+      "when": {
+        "mounted": "down",
+        "rotation": 7
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_7"
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 0
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_0",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 1
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_1",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 2
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_2",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 3
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_3",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 4
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_4",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 5
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_5",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 6
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_6",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "up",
+        "rotation": 7
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_7",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 0
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_0",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 1
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_1",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 2
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_2",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 3
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_3",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 4
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_4",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 5
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_5",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 6
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_6",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "north",
+        "rotation": 7
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_7",
+        "x": 90,
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 0
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_0",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 1
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_1",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 2
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_2",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 3
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_3",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 4
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_4",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 5
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_5",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 6
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_6",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "south",
+        "rotation": 7
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_7",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 0
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_0",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 1
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_1",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 2
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_2",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 3
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_3",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 4
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_4",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 5
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_5",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 6
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_6",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "east",
+        "rotation": 7
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_7",
+        "x": 90,
+        "y": -90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 0
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_0",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 1
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_1",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 2
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_2",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 3
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_3",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 4
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_4",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 5
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_5",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 6
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_6",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "mounted": "west",
+        "rotation": 7
+      },
+      "apply":{
+        "model": "magillurgy:block/reflector_block_glass_7",
+        "x": 90,
+        "y": 90
+      }
+    }
+  ]
+}

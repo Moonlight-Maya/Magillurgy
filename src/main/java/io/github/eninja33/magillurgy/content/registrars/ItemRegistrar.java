@@ -10,7 +10,8 @@ import net.minecraft.util.registry.Registry;
 public class ItemRegistrar {
 
     public static void register() {
-        Registry.register(Registry.ITEM, new Identifier(MagillurgyMod.MODID, "reflector_block"), new BlockItem(BlockRegistrar.REFLECTOR_BLOCK, new FabricItemSettings().group(ItemGroup.REDSTONE)));
+        Registry.register(Registry.ITEM, new Identifier(MagillurgyMod.MODID, "solid_reflector_block"), new BlockItem(BlockRegistrar.SOLID_REFLECTOR_BLOCK, new FabricItemSettings().group(ItemGroup.REDSTONE)));
+        Registry.register(Registry.ITEM, new Identifier(MagillurgyMod.MODID, "split_reflector_block"), new BlockItem(BlockRegistrar.SPLIT_REFLECTOR_BLOCK, new FabricItemSettings().group(ItemGroup.REDSTONE)));
         Registry.register(Registry.ITEM, new Identifier(MagillurgyMod.MODID, "laser_emitter_block"), new BlockItem(BlockRegistrar.LASER_EMITTER_BLOCK, new FabricItemSettings().group(ItemGroup.REDSTONE)));
     }
 }

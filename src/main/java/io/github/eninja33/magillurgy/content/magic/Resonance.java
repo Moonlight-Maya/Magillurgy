@@ -39,7 +39,7 @@ public class Resonance {
     public static final Resonance SOUL = new Resonance(0, 1, 0, 0);
     public static final Resonance VOID = new Resonance(0, -1, 0, 0);
     public static final Resonance ASTRAL = new Resonance(0, 0, 1, 0);
-    //The one who wrote that book didn't know about Nether. Why?
+    //The one who wrote that book didn't know about Nether. Why? :thinking:
     public static final Resonance NETHER = new Resonance(0, 0, -1, 0);
     public static final Resonance ARCANE = new Resonance(0, 0, 0, 1);
 
@@ -69,18 +69,16 @@ public class Resonance {
      * draw the Resonance generally towards Arcane, in the center.
      */
     public Resonance contaminate(float minAmount, float maxAmount) {
-        double r1, r2, r3;
+        double r1, r2, r3, l2;
         do {
             r1 = Math.random()*2-1;
             r2 = Math.random()*2-1;
             r3 = Math.random()*2-1;
-        } while (r1*r1+r2*r2+r3*r3 > 1);
+            l2 = r1*r1+r2*r2+r3*r3;
+        } while (l2 > 1 || l2 == 0);
         float rand = (float) Math.random()*(maxAmount - minAmount) + minAmount;
-        double len = Math.sqrt(r1*r1 + r2*r2 + r3*r3);
-        r1 /= len;
-        r2 /= len;
-        r3 /= len;
-        return mix((float) r1, (float) r2, (float) r3, 1-rand, rand);
+        double len = Math.sqrt(l2);
+        return mix((float) (r1/len), (float) (r2/len), (float) (r3/len), 1-rand, rand);
     }
 
     public Resonance mix(Resonance other, float percentA, float percentB) {
@@ -127,6 +125,7 @@ public class Resonance {
     }
 
     public Resonance copyFrom(Resonance r) {
+        arcaneDirty = r.arcaneDirty;
         return set(r.life, r.soul, r.astral, r.arcane);
     }
 

@@ -1,5 +1,7 @@
-package io.github.eninja33.magillurgy.content.lasers;
+package io.github.eninja33.magillurgy.content.lasers.reflectors;
 
+import io.github.eninja33.magillurgy.content.lasers.LightAffector;
+import io.github.eninja33.magillurgy.content.magic.Resonance;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -19,7 +21,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class ReflectorBlock extends Block implements Reflector {
+public abstract class AbstractReflectorBlock extends Block implements LightAffector {
 
     public static final DirectionProperty MOUNTED = DirectionProperty.of("mounted"); //The direction of the block this is mounted on
     public static final IntProperty ROTATION = IntProperty.of("rotation", 0, 7);
@@ -33,7 +35,7 @@ public class ReflectorBlock extends Block implements Reflector {
     public static final VoxelShape WEST = Block.createCuboidShape(0, 1, 1, 1, 15, 15);
     public static final VoxelShape OUTLINE = Block.createCuboidShape(1, 1, 1, 15, 15, 15);
 
-    public ReflectorBlock(Settings settings) {
+    public AbstractReflectorBlock(Settings settings) {
         super(settings);
         setDefaultState(getStateManager().getDefaultState().with(MOUNTED, Direction.DOWN).with(ROTATION, 0).with(POWERED, false));
     }
@@ -84,7 +86,7 @@ public class ReflectorBlock extends Block implements Reflector {
         world.setBlockState(pos, state.with(ROTATION, newRot));
     }
 
-    private static Vec3d getNormal(BlockState state) {
+    protected static Vec3d getNormal(BlockState state) {
         double angle = state.get(ROTATION)*0.3926991; //22.5 deg in rad
         Direction dir = state.get(MOUNTED);
         if (dir.getAxis() == Direction.Axis.Y) {
@@ -124,13 +126,5 @@ public class ReflectorBlock extends Block implements Reflector {
     @Override
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
         return true;
-    }
-
-    @Override
-    public Vec3i reflect(BlockState state, Vec3i input) {
-        Vec3d normal = getNormal(state);
-        Vec3d in = new Vec3d(input.getX(), input.getY(), input.getZ());
-        in = in.subtract(normal.multiply(2*in.dotProduct(normal)));
-        return new Vec3i(Math.round(in.x), Math.round(in.y), Math.round(in.z));
     }
 }
