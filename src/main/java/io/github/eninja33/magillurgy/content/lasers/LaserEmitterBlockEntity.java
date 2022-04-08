@@ -3,6 +3,7 @@ package io.github.eninja33.magillurgy.content.lasers;
 import io.github.eninja33.magillurgy.content.registrars.BlockEntityRegistrar;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Stainable;
+import net.minecraft.block.StainedGlassPaneBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.BufferBuilder;
@@ -21,7 +22,7 @@ import java.util.Queue;
 
 public class LaserEmitterBlockEntity extends BlockEntity {
 
-    private LaserBeam laserBeam = LaserBeam.get(new Vec3f(pos.getX(), pos.getY(), pos.getZ()), WHITE);; //Keeps track of all laser reflections and things
+    private LaserBeam laserBeam = LaserBeam.get(new Vec3f(pos.getX(), pos.getY(), pos.getZ()), WHITE); //Keeps track of all laser reflections and things
 
     private static final int STRENGTH = 256; //Default of 64 blocks the laser can travel
     private static final int UPDATE_TIME = 1; //Refresh lasers every x ticks
@@ -36,7 +37,11 @@ public class LaserEmitterBlockEntity extends BlockEntity {
 
     public static void tick(World world, BlockPos pos, BlockState state, LaserEmitterBlockEntity be) {
         if (world.getTime() % UPDATE_TIME == 0) {
-            be.laserBeam.update(world, pos);
+            synchronized (be) {
+                be.laserBeam.free();
+                be.laserBeam = LaserBeam.get(pos.getX(), pos.getY(), pos.getZ(), WHITE.getX(), WHITE.getY(), WHITE.getZ());
+                be.laserBeam.update(world, pos);
+            }
         }
     }
 
@@ -55,6 +60,7 @@ public class LaserEmitterBlockEntity extends BlockEntity {
 
         private final Vec3f startPos, endPos, color;
         private final List<LaserBeam> children = new ArrayList<>();
+        private boolean freed = false;
 
         private LaserBeam(Vec3f startPos, Vec3f color) {
             this.startPos = startPos.copy();
@@ -63,7 +69,6 @@ public class LaserEmitterBlockEntity extends BlockEntity {
         }
 
         public void update(World world, BlockPos pos) {
-            clear();
             startPos.set(pos.getX(), pos.getY(), pos.getZ());
             endPos.set(startPos);
             recurse(world, world.getBlockState(pos).get(LaserEmitterBlock.FACING).getVector(), STRENGTH);
@@ -77,11 +82,12 @@ public class LaserEmitterBlockEntity extends BlockEntity {
          */
         private void recurse(World world, Vec3i dir, int strength) {
             BlockPos.Mutable curPos = new BlockPos.Mutable(
-                    startPos.getX()+dir.getX(),
-                    startPos.getY()+dir.getY(),
-                    startPos.getZ()+dir.getZ()
+                    startPos.getX()+0.5+dir.getX(),
+                    startPos.getY()+0.5+dir.getY(),
+                    startPos.getZ()+0.5+dir.getZ()
             );
             BlockState state = world.getBlockState(curPos);
+            boolean shouldSetPosAtEnd = true;
             while (!state.isOpaque() && strength > 0) { //TODO: replace with better detection for blockage
                 if (state.getBlock() instanceof LightAffector ref) {
                     int sideStr = ref.strengthSide(state, dir, strength);
@@ -101,23 +107,25 @@ public class LaserEmitterBlockEntity extends BlockEntity {
                     break;
                 }
                 else if (state.getBlock() instanceof Stainable stainable) {
+                    float f = stainable instanceof StainedGlassPaneBlock ? 16.001f : 2.001f;
                     float[] comp = stainable.getColor().getColorComponents();
-                    LaserBeam newBeam = get(new Vec3f(
-                            curPos.getX()-dir.getX()/2f,
-                            curPos.getY()-dir.getY()/2f,
-                            curPos.getZ()-dir.getZ()/2f
-                    ), new Vec3f(
-                            comp[0], comp[1], comp[2]
-                    ));
+
+                    float nx = curPos.getX()-dir.getX()/f;
+                    float ny = curPos.getY()-dir.getY()/f;
+                    float nz = curPos.getZ()-dir.getZ()/f;
+                    LaserBeam newBeam = get(nx, ny, nz, comp[0], comp[1], comp[2]);
                     newBeam.recurse(world, dir, strength-1);
                     children.add(newBeam);
+                    endPos.set(nx, ny, nz);
+                    shouldSetPosAtEnd = false;
                     break;
                 }
                 curPos.move(dir);
                 strength--;
                 state = world.getBlockState(curPos);
             }
-            endPos.set(curPos.getX(), curPos.getY(), curPos.getZ());
+            if (shouldSetPosAtEnd)
+                endPos.set(curPos.getX(), curPos.getY(), curPos.getZ());
         }
 
         public void shift(float x, float y, float z) {
@@ -132,18 +140,31 @@ public class LaserEmitterBlockEntity extends BlockEntity {
         }
 
         private static float OFFSET = 1.0f / 32;
+
+        //Static, reusable instances for rendering to avoid allocations every frame
+        private static final Vec3f
+                diff = new Vec3f(),
+                normal = new Vec3f(),
+                binormal = new Vec3f(),
+                p0 = new Vec3f(),
+                p1 = new Vec3f(),
+                p2 = new Vec3f(),
+                p3 = new Vec3f(),
+                p4 = new Vec3f(),
+                p5 = new Vec3f(),
+                p6 = new Vec3f(),
+                p7 = new Vec3f();
         public void render(MatrixStack matrices, BufferBuilder buffer) {
-            //Create some handy vectors to help us draw the laser
-            Vec3f diff = endPos.copy();
+            //Initialize our handy vectors to help draw the laser
+            diff.set(endPos);
             diff.subtract(startPos);
 
-            Vec3f normal;
             if (diff.getX() == 0 && diff.getZ() == 0)
-                normal = new Vec3f(1,0,0);
+                normal.set(1, 0, 0);
             else
-                normal = new Vec3f(-diff.getZ(), 0, diff.getX());
+                normal.set(-diff.getZ(), 0, diff.getX());
 
-            Vec3f binormal = diff.copy();
+            binormal.set(diff);
             binormal.cross(normal);
 
             normal.normalize();
@@ -152,28 +173,28 @@ public class LaserEmitterBlockEntity extends BlockEntity {
             binormal.scale(OFFSET);
 
             //Create the 8 vertices of the beam segment
-            Vec3f p0 = startPos.copy();
+            p0.set(startPos);
             p0.subtract(normal);
             p0.subtract(binormal);
-            Vec3f p1 = startPos.copy();
+            p1.set(startPos);
             p1.subtract(normal);
             p1.add(binormal);
-            Vec3f p2 = startPos.copy();
+            p2.set(startPos);
             p2.add(normal);
             p2.subtract(binormal);
-            Vec3f p3 = startPos.copy();
+            p3.set(startPos);
             p3.add(normal);
             p3.add(binormal);
-            Vec3f p4 = endPos.copy();
+            p4.set(endPos);
             p4.subtract(normal);
             p4.subtract(binormal);
-            Vec3f p5 = endPos.copy();
+            p5.set(endPos);
             p5.subtract(normal);
             p5.add(binormal);
-            Vec3f p6 = endPos.copy();
+            p6.set(endPos);
             p6.add(normal);
             p6.subtract(binormal);
-            Vec3f p7 = endPos.copy();
+            p7.set(endPos);
             p7.add(normal);
             p7.add(binormal);
 
@@ -214,22 +235,29 @@ public class LaserEmitterBlockEntity extends BlockEntity {
             return get(pos.getX(), pos.getY(), pos.getZ(), color.getX(), color.getY(), color.getZ());
         }
         public static LaserBeam get(float x, float y, float z, float r, float g, float b) {
-            LaserBeam result = cache.poll();
+            LaserBeam result;
+            synchronized (cache) {
+                result = cache.poll();
+            }
             if (result == null)
                 return new LaserBeam(new Vec3f(x, y, z), new Vec3f(r, g, b));
+            if (!result.freed) {
+                System.out.println("This result wasn't freed, but we still got it from cache!");
+            }
             result.startPos.set(x, y, z);
             result.endPos.set(x, y, z);
             result.color.set(r, g, b);
+            result.freed = false;
             return result;
         }
-        public void clear() {
+        private void free() {
             for (LaserBeam child : children)
                 child.free();
             children.clear();
-        }
-        private void free() {
-            clear();
-            cache.offer(this);
+            freed = true;
+            synchronized (cache) {
+                cache.offer(this);
+            }
         }
     }
 }
