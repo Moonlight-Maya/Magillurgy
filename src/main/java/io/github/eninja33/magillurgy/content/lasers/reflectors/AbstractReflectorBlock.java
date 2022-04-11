@@ -1,7 +1,6 @@
 package io.github.eninja33.magillurgy.content.lasers.reflectors;
 
 import io.github.eninja33.magillurgy.content.lasers.LightAffector;
-import io.github.eninja33.magillurgy.content.magic.Resonance;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -14,13 +13,22 @@ import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * The little rotatable, mountable blocks which you can click on, and can
+ * reflect light in sorts of directions. There's currently 2 of them, the
+ * split mirror and solid mirror, so it's good to have an abstract superclass
+ * for their common functionality.
+ */
 public abstract class AbstractReflectorBlock extends Block implements LightAffector {
 
     public static final DirectionProperty MOUNTED = DirectionProperty.of("mounted"); //The direction of the block this is mounted on
